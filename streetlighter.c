@@ -19,10 +19,10 @@ that can be found in the LICENSE file.
 int main( void ){
   INIT;
   while(1){
-    RED_LIGHT(3000);
-    REDYELL_LIGHT(1000);
-    GREEN_LIGHT(3000);
+    RED_LIGHT(10000);
+    REDYELL_LIGHT(3000);
+    GREEN_LIGHT(10000);
     GREEN_BLINK(6,500);
-    YELLOW_LIGHT(1000);
+    YELLOW_LIGHT(3000);
   }
 }
