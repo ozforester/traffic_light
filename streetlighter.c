@@ -9,20 +9,20 @@ that can be found in the LICENSE file.
 #include <avr/io.h>
 #include <util/delay.h>
 
-#define INIT() { DDRB |= ((1 << PB0) | (1 << PB1) | (1 << PB2)); PORTB &= ~((1 << PB0) | (1 << PB1) | (1 << PB2)); }
-#define GREEN_LIGHT() { PORTB |= (1 << PB2); _delay_ms(3000); PORTB ^= (1 << PB2); }
-#define GREEN_BLINK() { for(uint8_t i=0; i<6; i++) { PORTB ^= (1 << PB2); _delay_ms(500); } }
-#define YELLOW_LIGHT() { PORTB |= (1 << PB1); _delay_ms(1000) ; PORTB ^= (1 << PB1); }
-#define RED_LIGHT() { PORTB |= (1 << PB0); _delay_ms(3000); PORTB &= ~(1 << PB0); }
-#define REDYELL_LIGHT() { PORTB |= (1<<PB0 | 1<<PB1); _delay_ms(1000); PORTB &= ~(1<<PB0 | 1<<PB1); }
+#define INIT { DDRB |= ((1 << PB0) | (1 << PB1) | (1 << PB2)); PORTB &= ~((1 << PB0) | (1 << PB1) | (1 << PB2)); }
+#define GREEN_LIGHT(delay) { PORTB |= (1 << PB2); _delay_ms(delay); PORTB ^= (1 << PB2); }
+#define GREEN_BLINK(times,delay) { for(uint8_t i=0; i<times; i++) { PORTB ^= (1 << PB2); _delay_ms(delay); } }
+#define YELLOW_LIGHT(delay) { PORTB |= (1 << PB1); _delay_ms(delay) ; PORTB ^= (1 << PB1); }
+#define RED_LIGHT(delay) { PORTB |= (1 << PB0); _delay_ms(delay); PORTB &= ~(1 << PB0); }
+#define REDYELL_LIGHT(delay) { PORTB |= (1<<PB0 | 1<<PB1); _delay_ms(delay); PORTB &= ~(1<<PB0 | 1<<PB1); }
 
 int main( void ){
-  INIT();
+  INIT;
   while(1){
-    RED_LIGHT();
-    REDYELL_LIGHT();
-    GREEN_LIGHT();
-    GREEN_BLINK();
-    YELLOW_LIGHT();
+    RED_LIGHT(3000);
+    REDYELL_LIGHT(1000);
+    GREEN_LIGHT(3000);
+    GREEN_BLINK(6,500);
+    YELLOW_LIGHT(1000);
   }
 }
